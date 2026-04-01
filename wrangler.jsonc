@@ -14,9 +14,7 @@
             "id": "<KV_NAMESPACE_ID>",
         },
     ],
-    "vars": {
-        "PUBLICATION_NAME": "ncdc",
-    },
-    // SLACK_WEBHOOK_URL は wrangler secret で設定する
-    // wrangler secret put SLACK_WEBHOOK_URL
+    // 以下の変数はCloudflareダッシュボード(Workers > Settings > Variables)で設定する
+    // PUBLICATION_NAME: Zenn Publication名
+    // SLACK_WEBHOOK_URL: Slack Incoming Webhook URL (secret)
 }
