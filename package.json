@@ -1,0 +1,26 @@
+{
+    "name": "zenn-feed-slack",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "wrangler dev --test-scheduled",
+        "start": "wrangler dev --test-scheduled",
+        "cf-typegen": "wrangler types",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "typecheck": "tsc --noEmit",
+        "format": "oxfmt",
+        "format:check": "oxfmt --check"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20260329.1",
+        "@tsconfig/strictest": "^2.0.8",
+        "oxfmt": "^0.42.0",
+        "typescript": "^5.5.2",
+        "vitest": "^4.1.2",
+        "wrangler": "^3.101.0"
+    },
+    "engines": {
+        "node": ">=24"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "zenn-feed-slack",
+    "main": "src/index.ts",
+    "compatibility_date": "2024-12-02",
+    "observability": {
+        "enabled": true,
+    },
+    "triggers": {
+        "crons": ["*/5 * * * *"],
+    },
+    "kv_namespaces": [
+        {
+            "binding": "FEED_KV",
+            "id": "<KV_NAMESPACE_ID>",
+        },
+    ],
+    "vars": {
+        "PUBLICATION_NAME": "ncdc",
+    },
+    // SLACK_WEBHOOK_URL は wrangler secret で設定する
+    // wrangler secret put SLACK_WEBHOOK_URL
+}

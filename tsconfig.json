@@ -1,0 +1,17 @@
+{
+    "extends": "@tsconfig/strictest/tsconfig.json",
+    "compilerOptions": {
+        "target": "es2024",
+        "lib": ["es2024"],
+        "jsx": "react-jsx",
+        "module": "es2022",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "checkJs": false,
+        "noEmit": true,
+        "isolatedModules": true,
+        "allowSyntheticDefaultImports": true,
+        "types": ["@cloudflare/workers-types"]
+    }
+}
