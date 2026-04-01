@@ -5,7 +5,7 @@
         "lib": ["es2024"],
         "jsx": "react-jsx",
         "module": "es2022",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "allowJs": true,
         "checkJs": false,
