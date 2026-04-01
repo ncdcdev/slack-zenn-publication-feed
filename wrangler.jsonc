@@ -8,13 +8,10 @@
     "triggers": {
         "crons": ["*/5 * * * *"],
     },
-    "kv_namespaces": [
-        {
-            "binding": "FEED_KV",
-            "id": "<KV_NAMESPACE_ID>",
-        },
-    ],
-    // 以下の変数はCloudflareダッシュボード(Workers > Settings > Variables)で設定する
-    // PUBLICATION_NAME: Zenn Publication名
-    // SLACK_WEBHOOK_URL: Slack Incoming Webhook URL (secret)
+    // 以下はCloudflareダッシュボードで設定する
+    // Bindings:
+    //   FEED_KV: KV Namespace
+    // Variables:
+    //   PUBLICATION_NAME: Zenn Publication名
+    //   SLACK_WEBHOOK_URL: Slack Incoming Webhook URL (secret)
 }
