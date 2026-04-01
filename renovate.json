@@ -1,0 +1,15 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:best-practices", ":pinAllExceptPeerDependencies"],
+    "baseBranchPatterns": ["main"],
+    "timezone": "Asia/Tokyo",
+    "schedule": ["before 9am on monday"],
+    "minimumReleaseAge": "3 days",
+    "packageRules": [
+        {
+            "matchManagers": ["npm"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "groupName": "minor-and-patch"
+        }
+    ]
+}
