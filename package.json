@@ -2,6 +2,7 @@
     "name": "slack-zenn-publication-feed",
     "version": "0.0.0",
     "private": true,
+    "license": "MIT",
     "scripts": {
         "dev": "wrangler dev --test-scheduled",
         "start": "wrangler dev --test-scheduled",
