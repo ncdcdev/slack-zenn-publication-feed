@@ -3,8 +3,8 @@
  * デプロイ前に実行して初回配信を防ぐ
  *
  * Usage:
- *   node scripts/seed-kv.mjs > /tmp/seed.json
- *   npx wrangler kv bulk put --namespace-id <KV_NAMESPACE_ID> /tmp/seed.json
+ *   node scripts/seed-kv.mjs <PUBLICATION_NAME> > /tmp/seed.json
+ *   npx wrangler kv bulk put --namespace-id <KV_NAMESPACE_ID> --remote /tmp/seed.json
  */
 
 const KV_KEY_PREFIX = "seen:";
@@ -27,6 +27,12 @@ async function fetchAllSlugs(publicationName) {
     return slugs;
 }
 
-const slugs = await fetchAllSlugs("ncdc");
+const publicationName = process.argv[2];
+if (!publicationName) {
+    console.error("Usage: node scripts/seed-kv.mjs <PUBLICATION_NAME>");
+    process.exit(1);
+}
+
+const slugs = await fetchAllSlugs(publicationName);
 const entries = slugs.map((slug) => ({ key: `${KV_KEY_PREFIX}${slug}`, value: "1" }));
 console.log(JSON.stringify(entries));
