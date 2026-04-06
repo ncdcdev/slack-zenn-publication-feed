@@ -14,11 +14,11 @@
         "format:check": "oxfmt --check"
     },
     "devDependencies": {
-        "@tsconfig/strictest": "^2.0.8",
-        "oxfmt": "^0.42.0",
-        "typescript": "^6.0.2",
-        "vitest": "^4.1.2",
-        "wrangler": "^4.78.0"
+        "@tsconfig/strictest": "2.0.8",
+        "oxfmt": "0.42.0",
+        "typescript": "6.0.2",
+        "vitest": "4.1.2",
+        "wrangler": "4.78.0"
     },
     "engines": {
         "node": ">=24"
