@@ -2,6 +2,7 @@
     "name": "slack-zenn-publication-feed",
     "main": "src/index.ts",
     "compatibility_date": "2024-12-02",
+    "workers_dev": false,
     "observability": {
         "enabled": true,
     },
@@ -14,8 +15,8 @@
             "binding": "FEED_KV",
         },
     ],
-    // varsはCloudflareダッシュボードで設定する(keep_vars: trueにより維持される)
-    //   PUBLICATION_NAME: Zenn Publication名
-    // secretsはwrangler secret putで設定する(デプロイで消えない)
-    //   SLACK_WEBHOOK_URL: Slack Incoming Webhook URL
+    // 以下はCloudflareダッシュボード(Settings > Variables and Secrets)で設定する
+    // keep_vars: trueによりデプロイ時に維持される
+    //   PUBLICATION_NAME: Zenn Publication名 (Variable)
+    //   SLACK_WEBHOOK_URL: Slack Incoming Webhook URL (Secret)
 }
