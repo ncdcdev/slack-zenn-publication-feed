@@ -10,6 +10,10 @@
             "matchManagers": ["npm"],
             "matchUpdateTypes": ["minor", "patch"],
             "groupName": "minor-and-patch"
+        },
+        {
+            "matchUpdateTypes": ["lockFileMaintenance"],
+            "minimumReleaseAge": null
         }
     ]
 }
