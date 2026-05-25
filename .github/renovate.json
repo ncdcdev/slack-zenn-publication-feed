@@ -5,6 +5,8 @@
     "timezone": "Asia/Tokyo",
     "schedule": ["before 9am on monday"],
     "minimumReleaseAge": "3 days",
+    "automerge": true,
+    "platformAutomerge": true,
     "packageRules": [
         {
             "matchManagers": ["npm"],
@@ -14,6 +16,10 @@
         {
             "matchUpdateTypes": ["lockFileMaintenance"],
             "minimumReleaseAge": null
+        },
+        {
+            "matchUpdateTypes": ["major"],
+            "automerge": false
         }
     ]
 }
