@@ -15,10 +15,10 @@
     },
     "devDependencies": {
         "@tsconfig/strictest": "2.0.8",
-        "oxfmt": "0.53.0",
+        "oxfmt": "0.54.0",
         "typescript": "6.0.3",
         "vitest": "4.1.8",
-        "wrangler": "4.98.0"
+        "wrangler": "4.100.0"
     },
     "engines": {
         "node": ">=24"
