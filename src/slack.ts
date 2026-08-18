@@ -1,3 +1,4 @@
+import { toSlackEmojiElement } from "./slack-emoji";
 import type { ZennArticle } from "./zenn";
 
 type SlackAttachment = {
@@ -20,11 +21,22 @@ export function buildSlackPayload(article: ZennArticle, topics: string[]): Slack
                 color: "#3EA8FF",
                 blocks: [
                     {
-                        type: "section",
-                        text: {
-                            type: "mrkdwn",
-                            text: `${article.emoji} *<${url}|${article.title}>*`,
-                        },
+                        type: "rich_text",
+                        elements: [
+                            {
+                                type: "rich_text_section",
+                                elements: [
+                                    toSlackEmojiElement(article.emoji),
+                                    { type: "text", text: " " },
+                                    {
+                                        type: "link",
+                                        url,
+                                        text: article.title,
+                                        style: { bold: true },
+                                    },
+                                ],
+                            },
+                        ],
                     },
                     {
                         type: "context",
