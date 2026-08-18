@@ -13,6 +13,9 @@
         "format": "oxfmt",
         "format:check": "oxfmt --check"
     },
+    "dependencies": {
+        "emoji-datasource": "16.0.0"
+    },
     "devDependencies": {
         "@tsconfig/strictest": "2.0.8",
         "oxfmt": "0.63.0",

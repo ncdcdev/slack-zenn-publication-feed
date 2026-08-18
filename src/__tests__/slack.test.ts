@@ -21,20 +21,89 @@ const SAMPLE_TOPICS = ["TypeScript", "Cloudflare"];
 describe("buildSlackPayload", () => {
     it("Block Kit形式のペイロードを生成する", () => {
         const payload = buildSlackPayload(SAMPLE_ARTICLE, SAMPLE_TOPICS);
-        expect(payload.attachments).toHaveLength(1);
-        expect(payload.attachments[0]?.color).toBe("#3EA8FF");
+        expect(payload).toEqual({
+            attachments: [
+                {
+                    color: "#3EA8FF",
+                    blocks: [
+                        {
+                            type: "rich_text",
+                            elements: [
+                                {
+                                    type: "rich_text_section",
+                                    elements: [
+                                        {
+                                            type: "emoji",
+                                            name: "diamond_shape_with_a_dot_inside",
+                                            unicode: "1f4a0",
+                                        },
+                                        { type: "text", text: " " },
+                                        {
+                                            type: "link",
+                                            url: "https://zenn.dev/ncdc/articles/abc123",
+                                            text: "テスト記事",
+                                            style: { bold: true },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            type: "context",
+                            elements: [
+                                {
+                                    type: "mrkdwn",
+                                    text: "`TypeScript`  `Cloudflare`",
+                                },
+                            ],
+                        },
+                        {
+                            type: "context",
+                            elements: [
+                                {
+                                    type: "image",
+                                    image_url: "https://example.com/avatar.jpg",
+                                    alt_text: "K",
+                                },
+                                {
+                                    type: "mrkdwn",
+                                    text: "*K*  |  2026/03/30",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        });
+    });
 
-        const blocks = payload.attachments[0]?.blocks as {
-            type: string;
-            text?: { text: string };
-        }[];
-        expect(blocks).toHaveLength(3);
+    it("タイトルのSlack記法を装飾として解釈させない", () => {
+        const title =
+            "ぼくのかんがえたさいきょうのCornixせってい ~最小限の運指で全ての操作を完結させ、モニターを1枚減らせた究極のキーマップ~";
+        const payload = buildSlackPayload({ ...SAMPLE_ARTICLE, emoji: "🦁", title }, SAMPLE_TOPICS);
 
-        // タイトルにリンクと絵文字が含まれる
-        const titleBlock = blocks[0]?.text?.text ?? "";
-        expect(titleBlock).toContain("💠");
-        expect(titleBlock).toContain("テスト記事");
-        expect(titleBlock).toContain("https://zenn.dev/ncdc/articles/abc123");
+        expect(payload.attachments[0]?.blocks[0]).toEqual({
+            type: "rich_text",
+            elements: [
+                {
+                    type: "rich_text_section",
+                    elements: [
+                        {
+                            type: "emoji",
+                            name: "lion_face",
+                            unicode: "1f981",
+                        },
+                        { type: "text", text: " " },
+                        {
+                            type: "link",
+                            url: "https://zenn.dev/ncdc/articles/abc123",
+                            text: title,
+                            style: { bold: true },
+                        },
+                    ],
+                },
+            ],
+        });
     });
 
     it("日付がYYYY/MM/DD形式になる", () => {
