@@ -41,8 +41,40 @@ describe("fetchArticles", () => {
     });
 
     it("APIエラー時にthrowする", async () => {
-        vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("error", { status: 500 })));
-        await expect(fetchArticles("ncdc", 10)).rejects.toThrow("Zenn API failed: 500");
+        const responseBody = "rate limited".padEnd(600, "!");
+        vi.stubGlobal(
+            "fetch",
+            vi.fn().mockResolvedValue(
+                new Response(responseBody, {
+                    status: 429,
+                    statusText: "Too Many Requests",
+                    headers: {
+                        "CF-Ray": "abc-NRT",
+                        "Retry-After": "900",
+                        "X-RateLimit-Limit": "25",
+                        "X-RateLimit-Remaining": "0",
+                        "X-RateLimit-Reset": "1787221800",
+                    },
+                }),
+            ),
+        );
+        const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+
+        await expect(fetchArticles("ncdc", 10)).rejects.toThrow(
+            "Zenn API failed: 429 Too Many Requests",
+        );
+        expect(errorSpy).toHaveBeenCalledWith({
+            message: "Zenn API request failed",
+            operation: "list",
+            status: 429,
+            statusText: "Too Many Requests",
+            retryAfter: "900",
+            rateLimitLimit: "25",
+            rateLimitRemaining: "0",
+            rateLimitReset: "1787221800",
+            cfRay: "abc-NRT",
+            responseBody: responseBody.slice(0, 512),
+        });
     });
 });
 
@@ -78,8 +110,13 @@ describe("fetchArticleDetail", () => {
 
     it("APIエラー時にthrowする", async () => {
         vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("error", { status: 404 })));
+        const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+
         await expect(fetchArticleDetail("notfound")).rejects.toThrow(
             "Zenn API (detail) failed: 404",
+        );
+        expect(errorSpy).toHaveBeenCalledWith(
+            expect.objectContaining({ operation: "detail", responseBody: "error" }),
         );
     });
 });
