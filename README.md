@@ -2,7 +2,7 @@
 
 Zenn Publicationの新着記事をSlackに通知するCloudflare Worker。
 
-5分間隔でZenn APIから記事を取得し、未通知の記事をSlack Block Kitでリッチに投稿します。KVで既読管理を行い、重複通知を防ぎます。
+15分間隔でZenn APIから記事を取得し、未通知の記事をSlack Block Kitでリッチに投稿します。KVで既読管理を行い、重複通知を防ぎます。
 
 ## Slackの投稿イメージ
 
@@ -63,7 +63,7 @@ Workers → Observability → Invocation Logで実行ログを確認できます
 npm install
 npm run dev
 # 別ターミナルで
-curl "http://localhost:8787/__scheduled?cron=*/5+*+*+*+*"
+curl "http://localhost:8787/__scheduled?cron=*/15+*+*+*+*"
 ```
 
 ローカル開発時は`.dev.vars`に変数を設定:
